@@ -32,7 +32,6 @@ div.well{
 }
 
 #myTable{
-    /*border-collapse: collapse;*/
     border: 1px solid black;
     width: 600px;
     margin-left: -140px;
@@ -41,7 +40,6 @@ div.well{
 }
 
 #contacts {
-  /*float: right;*/
   display: inline;
   position: absolute;
   z-index: 99;
@@ -58,6 +56,9 @@ div.well{
     position: absolute;
 }
 
+.icon-setts{
+    cursor: pointer;
+}
 
 
 
