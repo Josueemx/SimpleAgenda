@@ -1,0 +1,17 @@
+CREATE DATABASE flask;
+
+USE flask;
+
+CREATE TABLE agenda (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  lastname VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(255) NOT NULL,
+  phone_type VARCHAR(10) NOT NULL,
+  address VARCHAR(255) NOT NULL
+);
+
+INSERT INTO agenda (name, lastname, email, phone, phone_type, address) VALUES ('Hector', 'Salamanca', 'hecto@salamanca.com', '0447654321', 'Work', 'Heisenberg Ave. #1234');
+
+

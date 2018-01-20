@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
+from flask_sqlalchemy import SQLAlchemy
 import re, sys
 
 app = Flask(__name__)
@@ -9,6 +10,7 @@ def index():
 
 @app.route("/add", methods = ['POST'])
 def add():
+    session.pop('errors', None)
     errors = []
     try:
         name = request.form['name']
@@ -22,7 +24,7 @@ def add():
         session['errors'] = errors
 
         if len(errors) == 0:
-            session.pop('errors', None)
+            n = 1
             #aqui lo agrega a la base de datos
             
     except:
@@ -31,6 +33,7 @@ def add():
 
 @app.route("/update", methods = ['POST'])
 def update():
+    session.pop('errors', None)
     errors = []
     try:
         id = int(request.form['id'])
@@ -45,7 +48,7 @@ def update():
         session['errors'] = errors
 
         if len(errors) == 0:
-            session.pop('errors', None)
+            n = 1
             #aqui le hace update a la base de datos
             
     except:
