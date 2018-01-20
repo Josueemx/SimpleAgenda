@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, session
-from flask_sqlalchemy import SQLAlchemy
 import re, sys
 
 app = Flask(__name__)
@@ -36,7 +35,7 @@ def update():
     session.pop('errors', None)
     errors = []
     try:
-        id = int(request.form['id'])
+        id_user = int(request.form['id'])
         name = request.form['name']
         lastname = request.form['lastname']
         email = request.form['email']
