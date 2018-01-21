@@ -90,16 +90,18 @@
                                   </tr>
                                 </thead>
                                 <tbody style="color: black;">
+                                  {% for entry in entries %}
                                   <tr>
-                                    <td>Josué</td>
-                                    <td>Morales</td>
-                                    <td>josue@hotmail.com</td>
-                                    <td>6142314513</td>
-                                    <td>Work</td>
-                                    <td>direccion larga y asi</td>
-                                    <td><i class="glyphicon glyphicon-edit icon-setts" onclick="getDataFor(1)" title="Edit"></i></td>
-                                    <td><i class="glyphicon glyphicon-remove icon-setts" title="Delete" a="/delete?id="></i></td>
+                                    <td>{{ entry[1] }}</td>
+                                    <td>{{ entry[2] }}</td>
+                                    <td>{{ entry[3] }}</td>
+                                    <td>{{ entry[4] }}</td>
+                                    <td>{{ entry[5] }}</td>
+                                    <td>{{ entry[6] }}</td>
+                                    <td><i class="glyphicon glyphicon-edit icon-setts" onclick="getDataFor({{ entry[0] }})" title="Edit"></i></td>
+                                    <td><a href="/delete?id={{ entry[0] }}"><i class="glyphicon glyphicon-remove icon-setts" title="Delete" ></i></a></td>
                                   </tr>
+                                  {% endfor %}
                                 </tbody>
                             </table>
                        <!--<td><a href='delete.php?id=$idn'>Delete</a></td><td><a href='home.php?id=$idn&action=edit&name=$name&phone=$phone'>Edit</a> aqui reutilizar?--> 
@@ -119,3 +121,4 @@
 </body>
 
 </html>
+
