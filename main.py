@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 import re, sys
 from flaskext.mysql import MySQL
+from flask_sqlalchemy import SQLAlchemy
 
 mysql = MySQL()
 
@@ -11,7 +12,23 @@ app.config['MYSQL_DATABASE_USER'] = 'sql3216877'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'QwFHXgwK62'
 app.config['MYSQL_DATABASE_DB'] = 'sql3216877'
 app.config['MYSQL_DATABASE_PORT'] = 3306
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sql3216877:QwFHXgwK62@sql3.freemysqlhosting.net/sql3216877'
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
 mysql.init_app(app)
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(255))
+    lastname = db.Column(db.String(255))
+    email = db.Column(db.String(255))
+    phone = db.Column(db.String(255))
+    phone_type = db.Column(db.String(10))
+    address = db.Column(db.String(255))
 
 @app.route("/")
 def index():
@@ -36,16 +53,24 @@ def add():
         errors = validate(name, email, phone)
         session['errors'] = errors
 
+
         if len(errors) == 0:
-            #n = 1
+            # n = 1
             #aqui lo agrega a la base de datos
-            cur = mysql.get_db().cursor()
-            cur.execute('''INSERT INTO agenda(name,lastname,email,phone,phone_type,address) VALUES(%s,%s,%s,%s,%s,%s)''', (name,lastname,email,phone,phone_type,address))
+            # cur = mysql.get_db().cursor()
+            # cur.execute('''INSERT INTO agenda(id,name,lastname,email,phone,phone_type,address) VALUES(%d,%s,%s,%s,%s,%s,%s)''', (NULL,name,lastname,email,phone,phone_type,address))
             
+            signature = Contact(name=name,lastname=lastname,email=email,phone=phone,phone_type=phone_type,address=address)
+            db.session.add(signature)
+                  
             
     except:
         errors.append("Something happened in server :(")
-    cur.close()
+    
+    
+    db.session.commit() 
+    #cur.close()
+    #return render_template("index.html", name=name,lastname=lastname,email=email,phone=phone,phone_type=phone_type,address=address)
     return redirect("/", code=302)
 
 @app.route("/update", methods = ['POST'])
@@ -93,4 +118,3 @@ if __name__ == "__main__":
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run(debug = True, port = 8080)
-    
