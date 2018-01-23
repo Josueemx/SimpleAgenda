@@ -33,7 +33,7 @@ div.well{
 
 #myTable{
     border: 1px solid black;
-    width: 600px;
+    width: 600px !important;
     margin-left: -140px;
     display: none;
     position: absolute;
